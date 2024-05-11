@@ -1,0 +1,87 @@
+name: github-action
+run-name: ${{ github.actor }} is out building GitHub Actions
+
+on:
+  push:
+    # Pattern matched against refs/tags
+    tags:        
+      - '**' 
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build Maven Projects
+        run: |
+          mvn clean package -f ./accident/pom.xml
+          mvn clean package -f ./assessment/pom.xml
+          mvn clean package -f ./compensation/pom.xml
+          mvn clean package -f ./statistics/pom.xml
+          mvn clean package -f ./notification/pom.xml
+
+      - name: Docker Build and push for Accident
+        uses: docker/build-push-action@v4
+        with:
+          context: ./accident
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/accident:latest
+            ghcr.io/${{ github.repository }}/accident:${{ github.ref_name }}
+            
+      - name: Docker Build and push for Assessment
+        uses: docker/build-push-action@v4
+        with:
+          context: ./assessment
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/assessment:latest
+            ghcr.io/${{ github.repository }}/assessment:${{ github.ref_name }}
+            
+      - name: Docker Build and push for Compensation
+        uses: docker/build-push-action@v4
+        with:
+          context: ./compensation
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/compensation:latest
+            ghcr.io/${{ github.repository }}/compensation:${{ github.ref_name }}
+            
+      - name: Docker Build and push for Statistics
+        uses: docker/build-push-action@v4
+        with:
+          context: ./statistics
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/statistics:latest
+            ghcr.io/${{ github.repository }}/statistics:${{ github.ref_name }}
+            
+      - name: Docker Build and push for Notification
+        uses: docker/build-push-action@v4
+        with:
+          context: ./notification
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}/notification:latest
+            ghcr.io/${{ github.repository }}/notification:${{ github.ref_name }}
+            

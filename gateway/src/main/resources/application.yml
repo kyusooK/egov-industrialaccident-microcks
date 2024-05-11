@@ -1,0 +1,99 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+#<<< API Gateway / Routes
+      routes:
+        - id: accident
+          uri: http://localhost:8082
+          predicates:
+            - Path=/accidents/**, 
+        - id: assessment
+          uri: http://localhost:8083
+          predicates:
+            - Path=/assessments/**, /sickLeaves/**, 
+        - id: compensation
+          uri: http://localhost:8084
+          predicates:
+            - Path=/compensations/**, 
+        - id: statistics
+          uri: http://localhost:8085
+          predicates:
+            - Path=/statistics/**, 
+        - id: notification
+          uri: http://localhost:8086
+          predicates:
+            - Path=/notifications/**, 
+        - id: egov-default-backend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/board/**, /auth/**
+        - id: frontend
+          uri: http://localhost:3000
+          predicates:
+            - Path=/**
+#>>> API Gateway / Routes
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: accident
+          uri: http://accident:8080
+          predicates:
+            - Path=/accidents/**, 
+        - id: assessment
+          uri: http://assessment:8080
+          predicates:
+            - Path=/assessments/**, /sickLeaves/**, 
+        - id: compensation
+          uri: http://compensation:8080
+          predicates:
+            - Path=/compensations/**, 
+        - id: statistics
+          uri: http://statistics:8080
+          predicates:
+            - Path=/statistics/**, 
+        - id: notification
+          uri: http://notification:8080
+          predicates:
+            - Path=/notifications/**, 
+        - id: egov-default-backend
+          uri: http://default-backend:8080
+          predicates:        
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
