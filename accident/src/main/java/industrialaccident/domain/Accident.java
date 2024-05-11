@@ -68,10 +68,10 @@ public class Accident {
 
         industrialaccident.external.RequestSickLeaveBenefitCommand requestSickLeaveBenefitCommand = new industrialaccident.external.RequestSickLeaveBenefitCommand();
         
-        requestSickLeaveBenefitCommand.setBusinessCode(sickLeaveBenefitApplied.getBusinessCode());
-        requestSickLeaveBenefitCommand.setId(sickLeaveBenefitApplied.getId());
-        requestSickLeaveBenefitCommand.setEmployeeId(sickLeaveBenefitApplied.getEmployeeId());
-        requestSickLeaveBenefitCommand.setPeriod(sickLeaveBenefitApplied.getPeriod());
+        requestSickLeaveBenefitCommand.setId(getId());
+        requestSickLeaveBenefitCommand.setBusinessCode(getBusinessCode());
+        requestSickLeaveBenefitCommand.setEmployeeId(getEmployeeId());
+        requestSickLeaveBenefitCommand.setPeriod(getPeriod());
 
         AccidentApplication.applicationContext
             .getBean(industrialaccident.external.SickLeaveService.class)
