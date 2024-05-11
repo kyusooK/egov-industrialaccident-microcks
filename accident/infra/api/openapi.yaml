@@ -36,7 +36,7 @@ paths:
           required: true
           examples:
             Example 0:
-              value: null
+              value: 1
       responses:
         '200':
           content:

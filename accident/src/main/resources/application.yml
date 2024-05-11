@@ -47,7 +47,7 @@ logging:
 
 api:
   url: 
-    assessment: localhost:8083 
+    sickLeave: localhost:8083 
     
 
 server:
@@ -87,6 +87,6 @@ spring:
 
 api:
   url: 
-    assessment: assessment:8080 
+    sickLeave: assessment:8080 
     
 

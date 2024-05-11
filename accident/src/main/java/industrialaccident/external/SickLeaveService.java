@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "assessment", url = "${api.url.assessment}")
+@FeignClient(name = "sickLeave", url = "${api.url.sickLeave}")
 public interface SickLeaveService {
     @RequestMapping(
         method = RequestMethod.PUT,

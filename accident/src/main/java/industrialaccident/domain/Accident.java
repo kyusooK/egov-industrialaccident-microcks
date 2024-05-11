@@ -45,15 +45,9 @@ public class Accident {
         return accidentRepository;
     }
 
-    public void apply() {
-        //
-    }
-
-    //<<< Clean Arch / Port Method
     public void applyMedicalBenefit(
         ApplyMedicalBenefitCommand applyMedicalBenefitCommand
     ) {
-        //implement business logic here:
 
         MedicalBenefitApplied medicalBenefitApplied = new MedicalBenefitApplied(
             this
@@ -61,8 +55,6 @@ public class Accident {
         medicalBenefitApplied.publishAfterCommit();
     }
 
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
     public void applySickLeaveBenefit(
         ApplySickLeaveBenefitCommand applySickLeaveBenefitCommand
     ) {
@@ -73,14 +65,17 @@ public class Accident {
         );
         sickLeaveBenefitApplied.publishAfterCommit();
 
-        //Following code causes dependency to external APIs
-        // it is NOT A GOOD PRACTICE. instead, Event-Policy mapping is recommended.
 
-        industrialaccident.external.SickLeave sickLeave = new industrialaccident.external.SickLeave();
-        // mappings goes here
+        industrialaccident.external.RequestSickLeaveBenefitCommand requestSickLeaveBenefitCommand = new industrialaccident.external.RequestSickLeaveBenefitCommand();
+        
+        requestSickLeaveBenefitCommand.setBusinessCode(sickLeaveBenefitApplied.getBusinessCode());
+        requestSickLeaveBenefitCommand.setId(sickLeaveBenefitApplied.getId());
+        requestSickLeaveBenefitCommand.setEmployeeId(sickLeaveBenefitApplied.getEmployeeId());
+        requestSickLeaveBenefitCommand.setPeriod(sickLeaveBenefitApplied.getPeriod());
+
         AccidentApplication.applicationContext
             .getBean(industrialaccident.external.SickLeaveService.class)
-            .requestSickLeaveBenefit(sickLeave);
+            .requestSickLeaveBenefit(getId(), requestSickLeaveBenefitCommand);
     }
     //>>> Clean Arch / Port Method
 

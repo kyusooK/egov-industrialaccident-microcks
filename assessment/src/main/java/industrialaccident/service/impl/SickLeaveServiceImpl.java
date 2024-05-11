@@ -65,4 +65,22 @@ public class SickLeaveServiceImpl
         // Delete a sickLeave
         sickLeaveRepository.deleteById(id);
     }
+
+    @Override
+    public SickLeave requestSickLeaveBenefit(RequestSickLeaveBenefitCommand requestSickLeaveBenefitCommand) throws Exception {
+
+        SickLeave sickLeave = new SickLeave();
+        sickLeave.setAccessmentId(requestSickLeaveBenefitCommand.getId());
+        sickLeave.setAccidentId(requestSickLeaveBenefitCommand.getId());
+        sickLeave.setBusinessCode(requestSickLeaveBenefitCommand.getBusinessCode());
+        sickLeave.setEmployeeId(requestSickLeaveBenefitCommand.getEmployeeId());
+        sickLeave.setPeriod(requestSickLeaveBenefitCommand.getPeriod());
+        sickLeave.setStatus("휴업급여 요청됨");
+
+        sickLeaveRepository.save(sickLeave);
+
+        sickLeave.requestSickLeaveBenefit(requestSickLeaveBenefitCommand);
+
+        return sickLeave;
+    }
 }

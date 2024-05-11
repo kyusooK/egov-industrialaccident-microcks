@@ -71,8 +71,6 @@ public class SickLeave {
     public void requestSickLeaveBenefit(
         RequestSickLeaveBenefitCommand requestSickLeaveBenefitCommand
     ) {
-        //implement business logic here:
-
         SickLeaveBenefitRequested sickLeaveBenefitRequested = new SickLeaveBenefitRequested(
             this
         );

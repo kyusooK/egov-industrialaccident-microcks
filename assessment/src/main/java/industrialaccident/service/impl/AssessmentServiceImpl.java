@@ -78,20 +78,21 @@ public class AssessmentServiceImpl
             assessmentRepository.save(assessment);   
         */
 
-        Optional<Assessment> optionalAssessment = assessmentRepository.findById(
-            updateInvestigationCommand.getAssessmentId()
-        );
+        // Optional<Assessment> optionalAssessment = assessmentRepository.findById(
+        //     updateInvestigationCommand.getAssessmentId()
+        // );
 
-        if (optionalAssessment.isPresent()) {
-            Assessment assessment = optionalAssessment.get();
+        // if (optionalAssessment.isPresent()) {
+        //     Assessment assessment = optionalAssessment.get();
 
-            // business Logic....
-            assessment.updateInvestigation(updateInvestigationCommand);
-            assessmentRepository.save(assessment);
+        //     // business Logic....
+        //     assessment.updateInvestigation(updateInvestigationCommand);
+        //     assessmentRepository.save(assessment);
 
-            return assessment;
-        } else {
-            throw processException("info.nodata.msg");
-        }
+        //     return assessment;
+        // } else {
+        //     throw processException("info.nodata.msg");
+        // }
+        return null;
     }
 }

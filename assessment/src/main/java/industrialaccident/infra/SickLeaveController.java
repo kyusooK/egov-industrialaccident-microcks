@@ -52,4 +52,36 @@ public class SickLeaveController {
         // Delete a sickLeave via SickLeaveService
         sickLeaveService.deleteSickLeave(id);
     }
+
+    // @RequestMapping(
+    //     value = "/assessments/{id}/update",
+    //     method = RequestMethod.PUT,
+    //     produces = "application/json;charset=UTF-8"
+    // )
+    // public Assessment updateInvestigation(
+    //     @PathVariable(value = "id") Long id,
+    //     @RequestBody UpdateInvestigationCommand updateInvestigationCommand,
+    //     HttpServletRequest request,
+    //     HttpServletResponse response
+    // ) throws Exception {
+    //     return assessmentService.updateInvestigation(
+    //         updateInvestigationCommand
+    //     );
+    // }
+
+    @RequestMapping(
+        value = "/sickLeaves/{id}/requestsickleavebenefit",
+        method = RequestMethod.PUT,
+        produces = "application/json;charset=UTF-8"
+    )
+    public SickLeave requestSickLeaveBenefit(
+        @PathVariable(value = "id") Long id,
+        @RequestBody RequestSickLeaveBenefitCommand requestSickLeaveBenefitCommand,
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws Exception {
+        return sickLeaveService.requestSickLeaveBenefit(
+            requestSickLeaveBenefitCommand
+        );
+    }
 }

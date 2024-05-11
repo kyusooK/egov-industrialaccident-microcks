@@ -69,53 +69,34 @@ public class AccidentServiceImpl
     public Accident applyMedicalBenefit(
         ApplyMedicalBenefitCommand applyMedicalBenefitCommand
     ) throws Exception {
-        // You can implement logic here, or call the domain method of the Accident.
+        Accident accident = new Accident();
 
-        /** Option 1-1:  implement logic here     
-            Accident accident = new Accident();
-            accident.setUserId(event.getUserId());
+        accident.setBusinessCode(applyMedicalBenefitCommand.getBusinessCode());
+        accident.setEmployeeId(applyMedicalBenefitCommand.getEmployeeId());
+        accident.setHospitalCode(applyMedicalBenefitCommand.getHospitalCode());
+        accident.setDoctorNote(applyMedicalBenefitCommand.getDoctorNote());
+        accident.setAccidentType(applyMedicalBenefitCommand.getAccidentType());
+        accident.setStatus("요양급여신청됨");
 
-            accidentRepository.save(accident);   
-        */
+        accidentRepository.save(accident);
 
-        Optional<Accident> optionalAccident = accidentRepository.findById(
-            applyMedicalBenefitCommand.getAccidentId()
-        );
-
-        if (optionalAccident.isPresent()) {
-            Accident accident = optionalAccident.get();
-
-            // business Logic....
-            accident.applyMedicalBenefit(applyMedicalBenefitCommand);
-            accidentRepository.save(accident);
-
-            return accident;
-        } else {
-            throw processException("info.nodata.msg");
-        }
+        return accident;
     }
 
     @Override
     public Accident applySickLeaveBenefit(
         ApplySickLeaveBenefitCommand applySickLeaveBenefitCommand
     ) throws Exception {
-        // You can implement logic here, or call the domain method of the Accident.
-
-        /** Option 1-1:  implement logic here     
-            Accident accident = new Accident();
-            accident.setUserId(event.getUserId());
-
-            accidentRepository.save(accident);   
-        */
 
         Optional<Accident> optionalAccident = accidentRepository.findById(
-            applySickLeaveBenefitCommand.getAccidentId()
+            applySickLeaveBenefitCommand.getId()
         );
 
         if (optionalAccident.isPresent()) {
             Accident accident = optionalAccident.get();
 
-            // business Logic....
+            accident.setPeriod(applySickLeaveBenefitCommand.getPeriod());
+            accident.setStatus("휴업급여 신칭됨");
             accident.applySickLeaveBenefit(applySickLeaveBenefitCommand);
             accidentRepository.save(accident);
 

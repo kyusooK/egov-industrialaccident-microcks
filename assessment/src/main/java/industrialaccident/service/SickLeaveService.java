@@ -10,4 +10,8 @@ public interface SickLeaveService {
     SickLeave createSickLeave(SickLeave sickLeave) throws Exception;
     SickLeave updateSickLeave(SickLeave sickLeave) throws Exception;
     void deleteSickLeave(Long id) throws Exception;
+
+    SickLeave requestSickLeaveBenefit(
+        RequestSickLeaveBenefitCommand requestSickLeaveBenefitCommand
+    ) throws Exception;
 }

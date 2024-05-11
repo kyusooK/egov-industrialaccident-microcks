@@ -81,20 +81,21 @@ public class CompensationServiceImpl
             compensationRepository.save(compensation);   
         */
 
-        Optional<Compensation> optionalCompensation = compensationRepository.findById(
-            processCompensationCommand.getCompensationId()
-        );
+        // Optional<Compensation> optionalCompensation = compensationRepository.findById(
+        //     processCompensationCommand.getCompensationId()
+        // );
 
-        if (optionalCompensation.isPresent()) {
-            Compensation compensation = optionalCompensation.get();
+        // if (optionalCompensation.isPresent()) {
+        //     Compensation compensation = optionalCompensation.get();
 
-            // business Logic....
-            compensation.processCompensation(processCompensationCommand);
-            compensationRepository.save(compensation);
+        //     // business Logic....
+        //     compensation.processCompensation(processCompensationCommand);
+        //     compensationRepository.save(compensation);
 
-            return compensation;
-        } else {
-            throw processException("info.nodata.msg");
-        }
+        //     return compensation;
+        // } else {
+        //     throw processException("info.nodata.msg");
+        // }
+        return null;
     }
 }
